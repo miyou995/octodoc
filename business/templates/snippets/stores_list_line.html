@@ -1,0 +1,4 @@
+{% for warehouse in warehouses %}
+<option value="{{warehouse.id}}" {% if selected_warehouse == warehouse %}selected{% elif warehouse.is_default %}selected{% endif %}>{{warehouse.name}}</option>
+{% endfor %}
+

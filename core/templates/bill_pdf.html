@@ -1,0 +1,177 @@
+{% load static %}
+{% load i18n %}
+
+<html>
+    <head>
+        <link rel="stylesheet" href="{% static 'dashboard/css/bootstrap.min.css' %}">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <title>{% trans 'Bill' %}</title>
+        <meta charset="UTF-8" />
+        <style rel="stylesheet" type="text/css">
+                h1 {
+                    margin: 0;
+                    color: #dfa667;
+                    text-transform: uppercase;
+                }
+
+                .secondary {
+                    color: #bbb;
+                    margin-bottom: 20px;
+                }
+
+                .num {
+                    text-align: right;
+                }
+                .paid,
+                .pending {
+                    color: #184d47;
+                    bbill: 4px solid #184d47;
+                    text-transform: uppercase;
+                    font-weight: bold;
+                    font-size: 22px;
+                    padding: 4px 12px 0px;
+                    float: right;
+                    transform: rotate(-15deg);
+                    margin-right: 40px;
+                }
+                .pending {
+                    color: #c64756 !important;
+                    bbill: 4px solid #c64756;
+                }
+                .flex-container {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    margin-top: 100px;
+                    margin-left: 50px;
+                }
+                h1 {
+                    margin-top: 20 px;
+                    float: right;
+                }
+                .text-right {
+                    text-align: right !important;
+                }
+                .text-left {
+                text-align: left !important;
+            }
+            .bg-primary {
+                background-color: #007bff !important;
+              }
+        </style>
+    </head>
+<body>
+    
+    <div class="container-fluid d-flex justify-content-between">
+        <div class="col-lg-8 pr-0">
+            <h4 class="text-left">{% trans "Facture N°" %} : {{bill.number}} </h4>
+        </div> 
+        <div class="col-lg-3 pr-0">
+            <p class="text-right"> <strong>{% trans 'Date' %}</strong> :  {{bill.created|date:'d-m-Y'}} </p>
+        </div> 
+    </div>
+    {% comment %} <div class="justify-content-end">
+      <div class="col-lg-12 pr-0"> 
+        <h4 class="text-left">{% trans "FACTURE" %}: #{{bill.number}} </h4>
+        <p> <strong>{% trans 'Date' %}</strong> :  {{bill.created|date:'d-m-Y'}} </p>
+      </div>
+    </div>   {% endcomment %}
+    <div class="row">
+      <div class="col-lg-12">
+          <div class=" px-2">
+              <div class="card-body">
+                  <div class="container-fluid">
+                    <hr>
+                  </div>
+                  <div class="justify-content-middle">
+                    {% comment %} <div class="col-lg-3 pr-0">
+                      <h3 class="text-left">{% trans "FACTURE PROFORMA N°" %} : #{{bill.id}} </h3>
+                      <p> <strong>Date</strong> :  {{bill.created|date:'d-m-Y'}} </p> 
+                    </div> {% endcomment %}
+                  </div> 
+                  <div class="container-fluid d-flex justify-content-between">
+                    <div class="col-lg-3 pr-0">
+                      {% comment %} <p class="mt-3 text-left text-capitalize "><b >{% if inventory.title %}{{inventory.title}}{% else %}{% trans "Bon de reception" %}{% endif %}</b></p> {% endcomment %}
+                      <p class="text-left">{{business.name}} 
+                        {% if business.art_code %}<br> <small> {% trans "N° d'article :" %} {{business.art_code}},</small>{% endif %}
+                        {% if business.rc_code %}<br><small>{% trans 'RC :' %} {{business.rc_code}},</small>{% endif %}
+                        {% if business.nif_code %}<br><small>{% trans 'NIF :' %} {{business.nif_code}},</small>{% endif %}
+                        {% if business.nis_code %}<br><small>{% trans 'NIS :' %} {{business.nis_code}}.</small>{% endif %}
+                        </p>
+                        {% if business.address %}<p class="text-left"><small>{% trans 'Adresse:' %} {{business.address}}.</small> </p>{% endif %}
+                    </div>
+                    <div class="col-lg-3 pr-0">
+                      <p class="text-left">
+                        </p>
+                    </div>
+                    <div class="col-lg-3 pr-0">
+                      <p class="text-left">{{bill.first_name}}
+                        {% if bill.email %}<br> <small>{% trans 'Email :' %}  {{bill.email}},</small>{% endif %}
+                        {% if bill.phone %}<br> <small>{% trans 'Phone' %} {{bill.phone}},</small>{% endif %}
+                        {% if bill.commune.wilaya %}<br> <small>{% trans 'Address' %} : {{bill.commune.wilaya}}.</small>{% endif %}
+                        </p>
+                        <p class="text-left">{{bill.first_name}}
+                          {% if bill.email %}<br> <small>{% trans 'Email :' %}  {{bill.email}},</small>{% endif %}
+                          {% if bill.phone %}<br> <small>{% trans 'Phone' %} {{bill.phone}},</small>{% endif %}
+                          {% if bill.commune.wilaya %}<br> <small>{% trans 'Address' %} : {{bill.commune.wilaya}}.</small>{% endif %}
+                          </p>
+                        {% comment %} <p class="text-left"><small>{% trans 'Adresse:' %} {{bill.commune.wilaya}} </small></p> {% endcomment %}
+                    </div>
+                  </div>
+                  {% comment %} <div class="container-fluid d-flex justify-content-between">
+                    <div class="col-lg-3 pl-0">
+                      <p>Due Date : 25th Jan 2017</p>
+                    </div>
+                  </div> {% endcomment %}
+                  <div class="container-fluid d-flex justify-content-center w-100 my-4">
+                    <div class="table-responsive mt-4 w-100">
+                        <table class="table">
+                          <thead>
+                            <tr style="background: #4A246B; color: #fff;">
+                                <th>{% trans "Description" %}</th>
+                                <th class="text-right" >{% trans "Quantité" %}</th>
+                                <th class="text-right ">{% trans "Prix-HT " %} </th>
+                                <th class="text-right ">{% trans "Total" %} </th>
+                              </tr>
+                          </thead>
+                          <tbody>
+                            {% for line in bill.lines.all %}
+                              <tr class="text-right">
+                                <td class="text-left">{{line.product_option.full_name}}</td>
+                                <td class="text-right">{{line.quantity}}</td>
+                                <td class="text-right">{{line.price}} {% trans 'DA' %}</td>
+                                <td>{{line.get_cost}} {% trans 'DA' %}</td>
+                              </tr> 
+                            {% endfor %}
+                          </tbody>
+                        </table>
+                      </div>
+                  </div>
+                  <hr>
+              </div>
+                  <div class="container-fluid mt-3 w-100">
+                    <p class="text-right mb-2">{% trans "TOTAL" %}: {{bill.get_items_cost}} {% trans 'DA' %}</p>
+                    {% if bill.discount %}
+                    <p class="text-right">{% trans 'Discount' %}  : {{bill.discount}} {% trans 'DA' %}</p>
+                    {% endif %}
+                    {% if bill.billing.commune %}
+                    <p class="text-right">{% trans 'Livraison' %}  : {{bill.get_delivery_cost}} {% trans 'DA' %}</p>
+                    {% else %}
+                    <p class="text-right">{% trans 'Livraison gratuite' %} / </p>
+                    {% endif %}
+                    <h4 class="text-right mb-5">{% trans "Net à payer" %}: {{bill.get_bill_total}} {% trans 'DA' %}</h4>
+                    <hr>
+                  </div> 
+                    <p class="text-muted mb-0" style="text-transform: uppercase;">{% trans 'Arrêtée la présente facture a la somme de :' %} {{bill.get_numberinletters}} {% trans 'Dinar Algérien. ' %}</p>
+                {% comment %} {% if bill.note %}
+                    <p class="text-muted mb-0">{% trans 'Arrêtée la présente facture a la somme de :' %} {{bill.note|safe}}</p>
+                {% endif %} {% endcomment %}
+              </div>
+          </div>
+      </div>
+  </div>
+    <div class="container-fluid d-flex justify-content-end  mt-2">
+      <p class="text-muted  mx-5"><strong>{% trans 'CACHET ET SIGNATURE' %}</strong> </p>
+    </div>
+
+  </body>
+</html>

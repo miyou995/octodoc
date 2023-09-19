@@ -1,0 +1,319 @@
+{% extends 'dashboard/base.html' %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load l10n %}
+
+{% load humanize %}
+{% block content %}
+	<div class="d-flex flex-column flex-column-fluid">
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				{% include 'dashboard/snippets/_breadcrumb.html' with page_title=bill.get_order_type_display parent_url=bill.get_list_url parent_page=bill.parent_page %}
+			</div>
+		</div>
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<div class="d-flex flex-column flex-lg-row">
+					<div class="flex-lg-row-fluid mb-10 mb-lg-0 me-lg-7 me-xl-10">
+						<div class="card">
+							<div class="card-body p-12">
+								<form action="{{bill.get_edit_url}}" method="POST">
+									{% csrf_token %}
+									<div class="row d-flex gx-10 mb-5">
+										<div class="col-lg-12 pt-0">
+											<div class="d-flex flex-center flex-equal text-nowrap me-4" data-bs-toggle="tooltip" data-bs-trigger="hover" title="Enter invoice number">
+												<span class="fs-2x fw-bold text-gray-800">Invoice #</span>
+												<input type="text" class="form-control form-control-flush fw-bold text-muted fs-3 w-125px" value="{{bill.number}}" placehoder="..." />
+											</div>
+											<div class="d-flex align-items-center flex-equal fw-row me-4 justify-content-end" data-bs-toggle="tooltip" data-bs-trigger="hover" title="{% trans 'Specify invoice date' %}">
+												<div class="fs-6 fw-bold text-gray-700 text-nowrap">Date:</div>
+												<div class="position-relative d-flex align-items-center w-150px">
+													<input type="date" name="date" class='form-control form-control-transparent fw-bold pe-5' placeholder="dd-mm-yyyy"  value="{{bill.date|date:'Y-m-d'}}" >
+												</div>
+											</div>
+										</div>
+										{% comment %} <div class="row d-flex col-8 pt-0">
+											<div class="col-6">
+												<label class="form-label fs-6 fw-bold text-gray-700 mb-3">{% trans 'Bill Status' %}</label>
+												<select class="form-select mb-2" name="order_status" data-control="select2" data-allow-clear="true" data-hide-search="true" data-placeholder="Select a Bill type" >
+													<option></option>
+													{% for value, label in order_status_choices %}
+														<option value="{{ value }}" {% if value == bill.order_status %}selected="selected"{% endif %}>{{ label }}</option>
+													{% endfor %}
+												</select>
+											</div>
+											<div class="col-6">
+												<label class="form-label fs-6 fw-bold text-gray-700 mb-3">{% trans 'Bill type' %}</label>
+												<select class="form-select mb-2" name="order_type" data-control="select2" data-allow-clear="true" data-hide-search="true" data-placeholder="Select a Bill status" >
+													<option></option>
+													{% for value, label in order_types_choices %}
+													<option value="{{ value }}" {% if value == bill.order_type %}selected="selected"{% endif %}>{{ label }}</option>
+												{% endfor %}
+												</select>
+											</div>
+										</div> {% endcomment %}
+									</div>
+									<div class="separator separator-dashed my-10"></div>
+										<div class="mb-0">
+											<div class="row gx-10 mb-5">
+												<div class="col-lg-6">
+													<label class="form-label fs-6 fw-bold text-gray-700 mb-3">{% trans 'From' %} <small>{% trans 'warehouse' %}</small></label>
+													<a href="#" class="related-widget-wrapper-link add-related float-right"  
+													data-bs-toggle="modal" data-bs-target="#sg_create_modal"
+													data-bs-toggle="tooltip" data-bs-placement="right" title="{% trans "Add warehouse" %}"
+													hx-get="{% url 'inventory:create_warehouse' %}" hx-target="#sg_create_modal_content" hx-swap="innerHTML">
+														<img src="{% static 'admin/img/icon-addlink.svg' %}" alt="Add">
+													</a>
+													<select id="warehouseListSelect" name="sender" data-control="select2" data-placeholder="{% trans 'Select a Warehouse' %}" class="form-select form-select-solid warehouse-select"
+															hx-trigger="selected_warehouse from:body" hx-get="{% url 'inventory:only_warehouse_list' %}" hx-target="this">												
+														<option value=""></option>
+														 {% include "dashboard/apps/inventory/snippets/warehouses_list_line.html" with selected_warehouse=bill.sender %} 
+													</select>
+													
+												<div class="mt-5">
+													{% render_field billing_form.shipping_way placeholder="Shipping way"  class='form-control form-control-solid'  %}
+												</div>
+												
+												<div class="mt-5">
+													<select 
+														id="id_commune" 
+														name="commune" 
+														class="product-option-select form-select form-select-solid select-text" 
+														data-control="select2" 
+														data-placeholder="{% trans 'Select a Commune *' %}" 
+														data-allow-clear="true"  
+														required
+														>												
+														<option value=""></option>
+														{% for commune in communes %}
+															<option value="{{commune.id|unlocalize}}" {% if commune.id|unlocalize == billing_form.instance.commune.id|unlocalize %}
+																selected															
+															{% endif %}>{{commune.wilaya}} - {{commune.name}}</option>
+														{% endfor %}
+													</select>
+												</div>
+												</div>
+												<div class="col-lg-6">
+													<div class="row gx-10 mb-5">
+														<div class="mb-5">
+															<label class="form-label fs-6 fw-bold text-gray-700 m-3">{% trans 'Client' %}</label>
+															<a 
+																href="#" class="related-widget-wrapper-link add-related float-right"  
+																data-bs-toggle="modal" 
+																data-bs-target="#sg_create_modal"
+																data-bs-toggle="tooltip" 
+																data-bs-placement="right" 
+																title="{% trans 'Add client' %}"
+																	hx-get="{% url 'account:create_client' %}" 
+																	hx-target="#sg_create_modal_content"
+																	hx-swap="innerHTML" 
+																>
+																<img src="{% static 'admin/img/icon-addlink.svg' %}" alt="Add Client">
+															</a>
+															<select 
+																name="client" 
+																id="clientsListSelect" 
+																class="form-select form-select-solid"
+																data-control="select2" 
+																data-placeholder="{% trans 'Select a Client' %}" 
+																	hx-trigger="selected_client from:body" 
+																	hx-get="{% url 'account:only_clients_list' %}" 
+																	hx-target="this">
+																<option value=""></option>
+																{% include "dashboard/apps/profiles/snippets/clients_block_list.html" with selected_client=billing_form.instance.client %}
+															</select> 
+														</div>
+														<div class="mb-5">
+															{% render_field billing_form.first_name placeholder="Name"  class='form-control form-control-solid'  %}
+														</div>
+														<div class="mb-5">
+															{% render_field billing_form.email placeholder="Email"  class='form-control form-control-solid'  %}
+														</div>
+														<div class="mb-5">
+															{% render_field billing_form.phone placeholder="Phone"  class='form-control form-control-solid'  %}
+														</div>
+														<div class="mb-5">
+															{% render_field billing_form.address placeholder="Address"  class='form-control form-control-solid'  %}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="mb-10">
+										<div class="table-responsive mb-10">
+											<table class="table g-5 gs-0 mb-0 fw-bold text-gray-700" data-kt-element="items">
+												<thead>
+													<tr class="border-bottom fs-7 fw-bold text-gray-700 text-uppercase">
+														<th class="w-50px text-center">#</th>
+														<th class="min-w-300px w-475px">{% trans 'Item' %}</th>
+														<th class="min-w-100px w-100px">{% trans 'QTY' %}</th>
+														<th class="min-w-100px w-100px">{% trans 'Price' %}</th>
+														<th class="min-w-100px w-100px">{% trans 'Total' %}</th>
+														<th class="min-w-75px w-75px text-end">{% trans 'Delete' %}</th>
+													</tr>
+												</thead>
+												<tbody id="orderItems">
+													{% comment %} {{formsets.lines_formset}} {% endcomment %}
+													{% with bill.lines.count as lines_count %}
+														<input type="hidden" name="item_out-TOTAL_FORMS" value="{{lines_count}}" id="id_item_out-TOTAL_FORMS">
+														<input type="hidden" name="item_out-INITIAL_FORMS" value="{{lines_count}}" id="id_item_out-INITIAL_FORMS">
+														<input type="hidden" name="item_out-MIN_NUM_FORMS" value="0" id="id_item_out-MIN_NUM_FORMS">
+														<input type="hidden" name="item_out-MAX_NUM_FORMS" value="1000" id="id_item_out-MAX_NUM_FORMS">
+													{% for line in bill.lines.all %}
+														<tr class="border-bottom border-bottom-dashed item-form">
+															<td class="pt-8 text-nowrap text-center">
+																<span data-kt-element="number"><h5>{{forloop.counter}}</h5></span></td>
+															</td>
+															<td class="pe-7">
+																<select 
+																	id="id_item_out-{{forloop.counter0}}-product_option" 
+																	name="item_out-{{forloop.counter0}}-product_option" 
+																	class="form-select form-select-solid select-text" 
+																	data-control="select2" 
+																	data-placeholder="{% trans 'Select a product' %}" 
+																	data-allow-clear="true"  
+																	hx-trigger="warehouse_changed from:body" 
+																	hx-get="{% url 'inventory:only_warehouse_list' %}" 
+																	hx-target="this" required>												
+																		<option value=""></option>
+																		{% include "dashboard/apps/catalogue/snippets/product_options_list.html" with selected_product_id=line.product_option.id %} 
+																</select>
+															</td>
+															<td class="ps-0">
+																<input class="form-control form-control-solid" type="number" min="1" name="item_out-{{forloop.counter0}}-quantity" placeholder="1" value="{{line.quantity}}" 
+																data-kt-element="quantity" />
+																<input type="hidden" name="item_out-{{forloop.counter0}}-id" value="{{line.id}}" id="id_item_out-{{forloop.counter0}}-id">
+																<input type="hidden" name="item_out-{{forloop.counter0}}-order" value="{{bill.id}}" id="id_item_out-{{forloop.counter0}}-order">
+															</td>
+															<td class="pt-8  text-nowrap price">
+																<span data-kt-element="price">{{line.price|floatformat:"0"}} </span>
+															</td>
+															<td class="pt-8 text-nowrap">
+																<span data-kt-element="total">{{line.get_total|floatformat:"0"}}</span>
+															</td>
+															<td class="pt-5 text-end deleteTd">
+																{% if forloop.counter0 > lines_count %}
+																	<button type="button" class="btn btn-sm btn-icon btn-active-color-primary remove-item"  data-kt-element="remove-item">
+																		<span class="svg-icon svg-icon-3">
+																			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																				<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
+																				<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
+																				<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+																			</svg>
+																		</span>
+																	</button>
+																{% else %}
+																	<input type="checkbox"class="form-check-input mt-2" name="item_out-{{forloop.counter0}}-DELETE" id="id_item_out-{{forloop.counter0}}-DELETE" >
+																	<label for="id_item_out-{{forloop.counter0}}-DELETE" class="btn btn-sm btn-icon btn-active-color-primary"  data-kt-element="remove-item">
+																		<span class="svg-icon svg-icon-3">
+																			<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+																				<path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
+																				<path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
+																				<path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+																			</svg>
+																		</span>
+																	</label>
+																{% endif %}
+															</td>
+														</tr> 
+													{% endfor %}
+													{% endwith %}
+
+												</tbody> 
+													{% comment %} {{formsets.lines_formset}} {% endcomment %}
+												<tfoot>
+													<tr class="border-top border-top-dashed align-top fs-6 fw-bold text-gray-700">
+														<th colspan="2" class="text-primary">
+															<a class="btn btn-link py-1" id="addButton">Add item</a>
+														</th>
+											
+														<th colspan="3" class="border-bottom border-bottom-dashed ps-0">
+															<div class="row d-flex mb-3">
+																<div class="col-6 pt-2">
+																	<span class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="{% trans 'Sub Total before Discount' %}">{% trans 'Sub Total' %}</span>
+																</div>
+																<div class="col-6 pt-2">
+																	<span data-kt-element="sub-total">{{bill.get_items_cost|floatformat:"0"}}</span> <span >{% trans 'DA' %}</span>
+																</div>
+															</div>
+															<div class="row d-flex mb-3">
+																<div class="col-6 pt-2">
+																	<span class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="{% trans 'Discount is on total HT' %}">Discount</span>
+																</div>
+																<div class="col-6">
+																	<input class="form-control form-control-solid" type="number" min="1" value={{bill.discount}} name="discount" placeholder="{% trans 'enter a number(DA)' %}" data-kt-element="billDiscount" />
+																</div>
+															</div>
+															<div class="row d-flex mb-3">
+																<div class="col-6 pt-2">
+																	<span class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="{% trans 'Sub Total after Discount' %}">{% trans 'Sub Total 2' %}</span>
+																</div>
+																<div class="col-6 pt-2">
+																	<span data-kt-element="sub-total-after">{% if bill.get_sub_total %}{{bill.get_sub_total}}{% else %}0{% endif %}</span> <span >{% trans 'DA' %}</span>
+																</div>
+															</div>
+															<div class="row d-flex ">
+																<div class="col-6 pt-2">
+																	<span class="btn btn-link py-1" data-bs-toggle="tooltip" data-bs-trigger="hover" title="{% trans 'Discount is on total HT' %}">Tax <small>(%)</small></span>
+																</div>
+																<div class="col-6">
+																	<input class="form-control form-control-solid" type="number" min="1" name="tax"value={{bill.tax}} placeholder="1" data-kt-element="tax" />
+																</div>
+															</div>
+														</th>
+													</tr>
+													<tr class="align-top fw-bold text-gray-700">
+														<th></th>
+														<th colspan="2" class="fs-4 ps-0 text-end">Total</th>
+														<th colspan="2" class="text-end fs-4 text-nowrap">
+														<span data-kt-element="big-total">{{bill.get_bill_total}}</span> <span >{% trans 'DA' %}</span></th>
+													</tr>
+												</tfoot>
+											</table>
+										</div>
+										<div class="mb-0">
+											<label class="form-label fs-6 fw-bold text-gray-700">Notes</label>
+											<textarea name="note" class="form-control form-control-solid p-3" rows="3" placeholder="{% trans 'Note ...' %}"></textarea>
+										</div>
+										<button type="submit"  class="btn btn-primary w-100 mt-3">
+											<!--begin::Svg Icon | path: icons/duotune/general/gen016.svg-->
+											<span class="svg-icon svg-icon-3">
+												<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M15.43 8.56949L10.744 15.1395C10.6422 15.282 10.5804 15.4492 10.5651 15.6236C10.5498 15.7981 10.5815 15.9734 10.657 16.1315L13.194 21.4425C13.2737 21.6097 13.3991 21.751 13.5557 21.8499C13.7123 21.9488 13.8938 22.0014 14.079 22.0015H14.117C14.3087 21.9941 14.4941 21.9307 14.6502 21.8191C14.8062 21.7075 14.9261 21.5526 14.995 21.3735L21.933 3.33649C22.0011 3.15918 22.0164 2.96594 21.977 2.78013C21.9376 2.59432 21.8452 2.4239 21.711 2.28949L15.43 8.56949Z" fill="currentColor" />
+													<path opacity="0.3" d="M20.664 2.06648L2.62602 9.00148C2.44768 9.07085 2.29348 9.19082 2.1824 9.34663C2.07131 9.50244 2.00818 9.68731 2.00074 9.87853C1.99331 10.0697 2.04189 10.259 2.14054 10.4229C2.23919 10.5869 2.38359 10.7185 2.55601 10.8015L7.86601 13.3365C8.02383 13.4126 8.19925 13.4448 8.37382 13.4297C8.54839 13.4145 8.71565 13.3526 8.85801 13.2505L15.43 8.56548L21.711 2.28448C21.5762 2.15096 21.4055 2.05932 21.2198 2.02064C21.034 1.98196 20.8409 1.99788 20.664 2.06648Z" fill="currentColor" />
+												</svg>
+											</span>
+											{% trans 'Submit' %}
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--end::Layout-->
+			</div>
+			<!--end::Content container-->
+		</div>
+	</div>
+{% endblock content %}
+
+{% block modal %}
+	{% include 'dashboard/popups/create_object_modals.html' %}
+{% endblock modal %}
+
+
+{% block extrajs %}
+	{% include 'dashboard/apps/bill/snippets/formset_script.html' with prefix="item_out" %}
+{% endblock extrajs %}
+	
+
+
+
+
+
+
+
+
+

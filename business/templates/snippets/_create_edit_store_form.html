@@ -1,0 +1,60 @@
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+
+<div class="modal-header">
+    <h2>{{page_title}}</h2>
+    <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+        <span class="svg-icon svg-icon-1">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="currentColor" />
+                <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="currentColor" />
+            </svg>
+        </span>
+    </div>
+</div>
+<div class="modal-body scroll-y mx-5 mx-xl-15 mb-7">
+    <form id="sg_create_store_form" class="form" {% if form.instance.id %}  hx-post="{% url 'business:update_store' form.instance.id %}" {% else %} hx-post="{% url 'business:create_store' %}" {% endif %}>
+        {% comment %} <form id="sg_create_store_form" class="form" hx-post="{% url 'business:create_store' %}" hx-target="this" hx-swipe="outerHTML"> {% endcomment %}
+        <div class="mb-13 text-center">
+            <h1 class="mb-3">{% trans "Create New Warehouse" %}</h1>
+            {% comment %} <div class="text-muted fw-semibold fs-5">{% trans "If you need more flexibility " %}
+            <a href="#" class="fw-bold link-primary">Project Guidelines</a>.</div> {% endcomment %}
+        </div>
+        <div class="d-flex flex-column mb-8 fv-row">
+            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                <span class="required">{% trans "Name" %} </span>
+                {% comment %} <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> {% endcomment %}
+            </label>
+
+				{% render_field form.name class='form-control form-control-solid' %}
+        </div>
+        <div class="d-flex flex-column mb-8 fv-row">
+            <label class="d-flex align-items-center fs-6 fw-semibold mb-2">
+                <span >{% trans "Address" %}</span>
+                {% comment %} <i class="fas fa-exclamation-circle ms-2 fs-7" data-bs-toggle="tooltip" title="Specify a target name for future usage and reference"></i> {% endcomment %}
+            </label>
+				{% render_field form.address class='form-control form-control-solid' %}
+
+        </div>
+
+        <div class="d-flex flex-stack mb-8">
+            <div class="me-5">
+                <label class="fs-6 fw-semibold">{% trans "Default warehouse" %}</label>
+                <div class="fs-7 fw-semibold text-muted">{% trans "If you check this button the default warehouse will be set as regular warehouse" %}</div>
+            </div>
+            <label class="form-check form-switch form-check-custom form-check-solid">
+				{% render_field form.is_default class='form-check-input' %}
+                <span class="form-check-label fw-semibold text-muted">{% trans "Default" %}</span>
+            </label>
+        </div>
+        <div class="text-center">
+            <button type="reset" id="sg_create_store_form" class="btn btn-light me-3">{% trans "Cancel" %}</button>
+            <button type="submit"  class="btn btn-primary">{% trans "Submit" %}</button>
+            {% if form.instance.id %}  
+                {% include 'buttons/_delete.html' with object=form.instance %}
+            {% endif %}
+        </div>
+    </form>
+</div>

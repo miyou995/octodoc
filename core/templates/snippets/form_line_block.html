@@ -1,0 +1,79 @@
+{% load i18n %}
+
+<tr class="item-form {{correction}}">
+    <td class="pt-8 text-nowrap text-start">
+        <input type="hidden" name="item-{{counter}}-eye_choice" value="{{eye_choice}}">
+        <input type="hidden" name="item-{{counter}}-correction_choice" value="{{correction}}">
+        <span class="d-flex align-items-center" data-kt-element="number">
+            <span>
+                <i class="ki-duotone ki-eye text-primary fs-2x">
+                    <i class="path1"></i>
+                    <i class="path2"></i>
+                    <i class="path3"></i>
+                </i> 
+            </span>
+            <span >
+                <h5>{{eye}}</h5>
+            </span>
+        </span>
+    </td>
+    <td class="pe-7">
+        <select name="item-{{counter}}-type_de_verre" class="product-option-select form-select form-select-solid select-text" 
+            data-control="select2" 
+            data-placeholder="{% trans 'Type glass' %}" 
+            data-allow-clear="true"  
+            >												
+            <option value=""></option>
+            {% for glass_type in glass_types %}
+                <option value="{{glass_type.id}}">{{glass_type.name}}</option>
+            {% endfor %}
+        </select>
+    </td>
+    <td class="ps-0">
+        <select name="item-{{counter}}-spher" class="product-option-select form-select form-select-solid select-text" 
+            data-control="select2" 
+            data-placeholder="{% trans 'Spher' %}" 
+            data-allow-clear="true"  
+            >												
+            <option value=""></option>
+            {% for cyl in spher_choices %}
+                <option value="{{cyl.0}}">{{cyl.0}}</option>
+            {% endfor %}
+        </select>
+    </td>
+    <td class="ps-0">
+        <select 
+            name="item-{{counter}}-cyl" 
+            class="product-option-select form-select form-select-solid select-text" 
+            data-control="select2" 
+            data-placeholder="{% trans 'cyl' %}" 
+            data-allow-clear="true"  
+        >												
+            <option value=""></option>
+            {% for spher in cyl_choices %}
+                <option value="{{spher.0}}">{{spher.0}}</option>
+            {% endfor %}
+        </select>
+    </td>
+    <td class="ps-0">
+        <input class="form-control form-control-solid" type="number" min="1" name="item-{{counter}}-axe" placeholder="Axe" />
+    </td>
+    {% if correction != "VP" %}
+        <td class="ps-0">
+            <input class="form-control form-control-solid" type="number" min="1" name="item-{{counter}}-addition" placeholder="Addition" />
+        </td>
+    {% endif %}
+    <td class="pt-5 text-end">
+        <button type="button" class="btn btn-sm btn-icon btn-active-color-primary remove-item"  data-kt-element="remove-item">
+            <span class="svg-icon svg-icon-3">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
+                    <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
+                    <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+                </svg>
+            </span>
+        </button>
+        <input type="hidden" name="item-{{counter}}-id" id="id_item-{{counter}}-id">
+        <input type="hidden" name="item-{{counter}}-order" id="id_item-{{counter}}-order"> <!--I THINK this could be removed should be tested -->
+    </td>
+</tr> 

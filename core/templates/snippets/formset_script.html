@@ -1,0 +1,119 @@
+<script>
+    let prefix = "{{prefix}}"
+    const itemForm = document.querySelectorAll(".item-form")
+    const container = document.querySelector("#{{table_id}}") 
+    const addButton = document.querySelector("#{{addButton}}")
+    const totalForms = document.querySelector("#id_{{prefix}}-TOTAL_FORMS")
+    const removeButton = document.querySelector('.remove-item');
+
+    let formNum = itemForm.length-1
+    function init($elem) {
+        $elem.select2({
+            minimumResultsForSearch: -1,
+            width: 'resolve',
+        });   
+    }
+    addButton.addEventListener('click', function(e){
+      addForm(e)
+    })
+
+
+function correctNumbers() {
+  //console.log('itemForm.length', itemForm.length-1)
+  console.log('formNum===>', formNum)
+  const formRegex = RegExp(`${prefix}-(\\d+)-`, 'g');
+  const form = document.getElementById('orderItems');
+  const trElements = form.getElementsByTagName('tr');
+  
+  for (let i = 0; i < trElements.length; i++) {
+    const trIndex = i;
+
+    trElements[i].querySelector('h5').innerHTML = `${trIndex+1}`
+   // trElements[i].id = `${prefix}-${trIndex+1}`;
+    trElements[i].querySelectorAll('[name], [id]').forEach((elem) => {
+      const { name, id } = elem;
+      if (name && name.match(formRegex)) {
+        elem.setAttribute('name', name.replace(formRegex, `${prefix}-${trIndex}-`));
+      }
+      if (id && id.match(formRegex)) {
+        elem.setAttribute('id', id.replace(formRegex, `${prefix}-${trIndex}-`));
+      }
+    });
+  }
+  updateSubTotal() // this method is on main.js file
+}
+
+function replaceButtonWithCheckbox(newForm) {
+  const buttonTd = newForm.querySelector('.deleteTd');
+  if (buttonTd) {
+    console.log('LISGHT THE SKY')
+    buttonTd.outerHTML = `
+      <td class="pt-5 text-end">
+        <button type="button" class="btn btn-sm btn-icon btn-active-color-primary remove-item"  data-kt-element="remove-item">
+          <span class="svg-icon svg-icon-3">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M5 9C5 8.44772 5.44772 8 6 8H18C18.5523 8 19 8.44772 19 9V18C19 19.6569 17.6569 21 16 21H8C6.34315 21 5 19.6569 5 18V9Z" fill="currentColor" />
+              <path opacity="0.5" d="M5 5C5 4.44772 5.44772 4 6 4H18C18.5523 4 19 4.44772 19 5V5C19 5.55228 18.5523 6 18 6H6C5.44772 6 5 5.55228 5 5V5Z" fill="currentColor" />
+              <path opacity="0.5" d="M9 4C9 3.44772 9.44772 3 10 3H14C14.5523 3 15 3.44772 15 4V4H9V4Z" fill="currentColor" />
+            </svg>
+          </span>
+        </button>
+      </td>
+    `;
+  }
+}
+
+  function addForm(e){
+    e.preventDefault()
+    console.log('formNum===>', formNum)
+    let newForm = itemForm[0].cloneNode(true)
+
+    const formRegex = RegExp(`${prefix}-(\\d+)-`,'g')
+    formNum++
+    newForm.querySelector('h5').innerHTML = `${formNum+1}`
+    newForm.innerHTML = newForm.innerHTML.replace(formRegex, `${prefix}-${formNum}-`)
+
+    newForm.innerHTML = newForm.innerHTML.replace(formRegex, `${prefix}-${formNum}-`);
+    replaceButtonWithCheckbox(newForm);
+
+    //newForm.setAttribute("id",`${prefix}_` + formNum);
+    container.append(newForm) ;
+    const newSelect=$(newForm).find(".select-text").last();
+    totalForms.setAttribute('value', `${formNum+1}`) //should be added on delete func 
+    init(newSelect);
+    $('.select-text').select2();
+     //var dynamicTrLine = document.getElementById(`${prefix}_` + formNum);     
+     var select2Items = newForm.querySelectorAll('.select2-container');
+     //If it's a select2
+     if (select2Items !== null) {
+        select2Items.forEach(function(item) {
+            var parent = item.parentElement;
+            if (item.nextSibling ) {
+                parent.removeChild(parent.lastElementChild);
+            }
+        });	
+    }
+   }
+
+   container.addEventListener("click", function(event) {
+    var target = event.target;
+    if (target.closest(".remove-item")) {
+      var tr = target.closest("tr");
+      if (tr === itemForm[0]){
+        toastr.error('Vous ne pouvez supprimer le premier élément')
+        console.log('Vous ne pouvez supprimer le premier élément')
+      }else{
+        // totalForms.setAttribute('value', `${formNum-1}`)
+        console.log('formNum===>', formNum)
+        formNum--
+        totalForms.setAttribute('value', `${formNum+1}`)
+        tr.remove();
+        correctNumbers()
+      }
+    }
+
+  });
+
+
+</script>
+

@@ -1,0 +1,11 @@
+{% load i18n %}
+<table class="table mb-0 border-bottom border-bottom-dashed border-gray-800" id="{{table_id}}">
+    <td colspan='7' class="pt-5 text-nowrap text-center">
+        <span data-kt-element="number">
+            <h4 class="text-start text-danger">{{table}}</h4>
+        </span>
+    </td>
+    {% include 'snippets/form_line_block.html' with eye="Droit" counter=counter eye_choice="OD" %}
+    {% include 'snippets/form_line_block.html' with eye="Gauche" counter=counterGauche eye_choice="OG"  %}
+</table>
+{% include 'snippets/formset_script.html' with prefix="item" table_id=table_id addButton="addDeLoin" %}

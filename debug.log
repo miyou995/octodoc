@@ -1,0 +1,283 @@
+2023-09-19 18:17:30,640 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:17:45,527 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/business/admin.py changed, reloading.
+2023-09-19 18:17:46,798 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:17:53,930 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/business/admin.py changed, reloading.
+2023-09-19 18:17:55,081 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:18:42,479 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/core/admin.py changed, reloading.
+2023-09-19 18:18:43,811 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:18:54,098 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/core/admin.py changed, reloading.
+2023-09-19 18:18:55,511 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:19:02,911 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/core/views.py changed, reloading.
+2023-09-19 18:19:04,321 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:19:14,253 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/core/views.py changed, reloading.
+2023-09-19 18:19:15,557 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:19:24,183 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/core/urls.py changed, reloading.
+2023-09-19 18:19:25,560 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:20:55,978 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:21:02,263 django.request ERROR    Internal Server Error: /
+Traceback (most recent call last):
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/base.py", line 71, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'business'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/core/views.py", line 19, in index_view
+    return render(request,'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 208, in render
+    return template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 177, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/base.py", line 82, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'business' is not a registered namespace
+2023-09-19 18:21:03,346 django.request WARNING  Not Found: /favicon.ico
+2023-09-19 18:21:16,791 django.utils.autoreload INFO     /mnt/c/Users/amd/Desktop/octodoc/config/urls.py changed, reloading.
+2023-09-19 18:21:18,083 django.utils.autoreload INFO     Watching for file changes with StatReloader
+2023-09-19 18:21:20,202 django.request ERROR    Internal Server Error: /
+Traceback (most recent call last):
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/core/views.py", line 19, in index_view
+    return render(request,'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 208, in render
+    return template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 177, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'stores_list' not found. 'stores_list' is not a valid view function or pattern name.
+2023-09-19 18:23:19,201 django.request ERROR    Internal Server Error: /
+Traceback (most recent call last):
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/core/handlers/base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/core/views.py", line 19, in index_view
+    return render(request,'index.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 175, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/loader_tags.py", line 208, in render
+    return template.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 177, in render
+    return self._render(context)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/test/utils.py", line 112, in instrumented_test_render
+    return self.nodelist.render(context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 1005, in <listcomp>
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/base.py", line 966, in render_annotated
+    return self.render(context)
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/template/defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/c/Users/amd/Desktop/octodoc/venv/lib/python3.11/site-packages/django/urls/resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'list_bills' not found. 'list_bills' is not a valid view function or pattern name.
+2023-09-19 18:24:03,707 django.request WARNING  Not Found: /assets/media/avatars/300-11.jpg
+2023-09-19 18:24:03,717 django.request WARNING  Not Found: /assets/media/avatars/300-2.jpg
+2023-09-19 18:24:03,745 django.request WARNING  Not Found: /assets/media/illustrations/misc/upgrade.svg
+2023-09-19 18:24:03,794 django.request WARNING  Not Found: /assets/media/avatars/300-12.jpg
+2023-09-19 18:24:03,879 django.request WARNING  Not Found: /assets/media/stock/900x600/42.png
+2023-09-19 18:24:03,938 django.request WARNING  Not Found: /assets/media/patterns/vector-1.png
+2023-09-19 18:24:04,217 django.request WARNING  Not Found: /assets/media/avatars/300-3.jpg
+2023-09-19 18:24:04,265 django.request WARNING  Not Found: /assets/media/avatars/300-9.jpg
+2023-09-19 18:24:04,279 django.request WARNING  Not Found: /assets/media/illustrations/misc/upgrade-dark.svg
+2023-09-19 18:24:04,441 django.request WARNING  Not Found: /assets/media/avatars/300-7.jpg
+2023-09-19 18:24:04,483 django.request WARNING  Not Found: /assets/media/avatars/300-24.jpg
+2023-09-19 18:24:04,621 django.request WARNING  Not Found: /assets/media/avatars/300-25.jpg
+2023-09-19 18:24:04,762 django.request WARNING  Not Found: /assets/media/avatars/300-23.jpg
+2023-09-19 18:24:04,771 django.request WARNING  Not Found: /assets/media/avatars/300-17.jpg
+2023-09-19 18:24:04,783 django.request WARNING  Not Found: /assets/media/avatars/300-20.jpg
+2023-09-19 18:24:05,023 django.request WARNING  Not Found: /assets/media/avatars/300-1.jpg
+2023-09-19 18:24:05,037 django.request WARNING  Not Found: /assets/media/avatars/300-4.jpg
+2023-09-19 18:24:05,193 django.request WARNING  Not Found: /assets/media/avatars/300-21.jpg
+2023-09-19 18:24:05,262 django.request WARNING  Not Found: /assets/media/avatars/300-30.jpg
+2023-09-19 18:24:05,273 django.request WARNING  Not Found: /assets/media/avatars/300-14.jpg
+2023-09-19 18:24:05,324 django.request WARNING  Not Found: /assets/media/avatars/300-6.jpg
+2023-09-19 18:24:05,442 django.request WARNING  Not Found: /assets/media/stock/600x600/img-49.jpg
+2023-09-19 18:24:05,459 django.request WARNING  Not Found: /assets/media/avatars/300-10.jpg
+2023-09-19 18:24:05,671 django.request WARNING  Not Found: /assets/media/stock/600x600/img-40.jpg
+2023-09-19 18:24:05,681 django.request WARNING  Not Found: /assets/media/stock/600x600/img-47.jpg
+2023-09-19 18:24:05,693 django.request WARNING  Not Found: /assets/media/stock/600x600/img-39.jpg
+2023-09-19 18:24:05,727 django.request WARNING  Not Found: /assets/media/stock/600x600/img-48.jpg
+2023-09-19 18:24:05,793 django.request WARNING  Not Found: /assets/media/stock/600x600/img-65.jpg

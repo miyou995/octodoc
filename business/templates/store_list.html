@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
+
+{% block content %}
+	<div class="d-flex flex-column flex-column-fluid">
+		<div id="kt_app_toolbar" class="app-toolbar py-3 py-lg-6">
+			<div id="kt_app_toolbar_container" class="app-container container-xxl d-flex flex-stack">
+				<div class="d-flex align-items-center gap-2 gap-lg-3">
+					<select name="status" data-control="select2" data-hide-search="true" data-placeholder="Export" class="form-select form-select-sm border-body bg-body w-100px">
+						<option value="1">Excel</option>
+						<option value="1">PDF</option>
+						<option value="2">Print</option>
+					</select>
+					<a href="#" 
+						class="btn btn-sm fw-bold btn-primary" 
+						data-bs-toggle="modal" 
+						data-bs-target="#sg_create_modal"
+						data-bs-toggle="tooltip" 
+						data-bs-placement="right" 
+						title="{% trans 'Add store' %}"
+						hx-get="#" 
+						hx-target="#sg_create_modal_content" 
+						hx-swap="innerHTML"
+					>Create</a>
+				</div>
+			</div>
+		</div>
+		<div id="kt_app_content" class="app-content flex-column-fluid">
+			<div id="kt_app_content_container" class="app-container container-xxl">
+				<div class="tab-content">
+					<div id="kt_project_users_card_pane" class="tab-pane fade show active">
+						<div class="row g-6 g-xl-9"
+						hx-trigger="refresh_stores from:body" hx-get="#" hx-swipe="innerHTML" hx-target="this" >
+						{% include 'snippets/_store_block.html' %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock content %}
+
+

@@ -1,0 +1,6 @@
+{% for item in items %}
+<option value="{{item.id}}" data-price={{item.product_price}} {% if selected_item_id == item.id %}selected{% endif %}>{{item.product_name|truncatechars:"45"}}</option>
+{% endfor %}
+
+
+
